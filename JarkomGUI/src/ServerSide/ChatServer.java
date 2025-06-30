@@ -40,4 +40,7 @@ public class ChatServer {
             System.out.println(client.getUsername() + " disconnected. Active clients: " + clients.size());
         }
     }
+    public static boolean isTaken(ClientHandler username){
+        return clients.contains(username);
+    }
 }

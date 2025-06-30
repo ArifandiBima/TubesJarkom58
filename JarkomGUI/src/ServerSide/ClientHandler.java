@@ -42,9 +42,10 @@ public class ClientHandler implements Runnable {
         do{
             out.println("Enter your username:");
             username = in.readLine();
+            taken = ChatServer.isTaken(this);
         } while (taken);
         
-        ChatServer.broadcastSystemMessage(username + " connected");
+        out.println(username + " connected");
     }
 
     private void processMessages() throws IOException {
@@ -175,5 +176,9 @@ public class ClientHandler implements Runnable {
 
     public String getUsername() {
         return username;
+    }
+    public boolean equals(Object other){
+        if (!(other instanceof ClientHandler)) return false;
+        return this.username.equals(((ClientHandler)other).username);
     }
 }

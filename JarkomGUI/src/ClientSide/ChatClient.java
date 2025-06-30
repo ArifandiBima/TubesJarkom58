@@ -9,16 +9,19 @@ public class ChatClient {
     private static final String SERVER_IP = "localhost";
     private static final int PORT = 1234;
     private static final AtomicBoolean running = new AtomicBoolean(true);
+    private static PrintWriter out;
+    private static BufferedReader in;
 
     public static void main(String[] args) {
         try (
             Socket socket = new Socket(SERVER_IP, PORT);
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            
         ) {
-            startReceiverThread(in);
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            
             printHelp();
-            processUserInput(out);
+            UsernameSubmit.getUsername();
         } catch (IOException e) {
             System.err.println("Client error: " + e.getMessage());
         }
@@ -39,23 +42,20 @@ public class ChatClient {
         }).start();
     }
 
-    private static void processUserInput(PrintWriter out) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (running.get()) {
-                String input = scanner.nextLine();
-                if (input.equalsIgnoreCase("/exit")) {
-                    shutdown(out);
-                    break;
-                } else if (input.equalsIgnoreCase("/help")) {
-                    printHelp();
-                } else {
-                    out.println(input);
-                }
+    private static void processUserInput(String input) {
+        try{
+            if (input.equalsIgnoreCase("/exit")) {
+                shutdown();
+            } else if (input.equalsIgnoreCase("/help")) {
+                printHelp();
+            } else {
+                out.println(input);
             }
+        }catch(Exception e){
         }
     }
 
-    private static void shutdown(PrintWriter out) {
+    private static void shutdown() {
         running.set(false);
         out.println("/exit");
     }
@@ -71,5 +71,18 @@ public class ChatClient {
             /help         - Show this help message
             /exit         - Quit the application
             """);
+    }
+    public boolean usernameVerified(){
+        String serverMessage="";
+        try {
+            serverMessage = in.readLine();
+        } catch (IOException e) {
+            if (running.get()) {
+                System.out.println("Disconnected from server.");
+            }
+        }
+        if (serverMessage.equals("Enter your username:"))return false;
+        startReceiverThread(in);
+        return true;
     }
 }
