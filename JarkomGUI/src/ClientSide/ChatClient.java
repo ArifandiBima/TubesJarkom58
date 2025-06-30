@@ -23,7 +23,7 @@ public class ChatClient {
             printHelp();
             UsernameSubmit.getUsername();
         } catch (IOException e) {
-            System.err.println("Client error: " + e.getMessage());
+            System.err.println("Client errorm: " + e.getMessage());
         }
     }
 
@@ -72,14 +72,14 @@ public class ChatClient {
             /exit         - Quit the application
             """);
     }
-    public boolean usernameVerified(){
+    public static boolean usernameVerified(String username){
+        if (username.trim().equals("")) return false;
         String serverMessage="";
         try {
+            out.println(username);
             serverMessage = in.readLine();
         } catch (IOException e) {
-            if (running.get()) {
-                System.out.println("Disconnected from server.");
-            }
+            System.out.println("ana");
         }
         if (serverMessage.equals("Enter your username:"))return false;
         startReceiverThread(in);
