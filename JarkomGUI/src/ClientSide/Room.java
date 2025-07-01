@@ -26,21 +26,91 @@ public class Room extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        RoomNameLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ChatLogArea = new javax.swing.JTextArea();
+        SendButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        MessageArea = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        MemberRuanganArea = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        RoomNameLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 48)); // NOI18N
+        RoomNameLabel.setText("[ Nama Ruangan ]");
+
+        ChatLogArea.setColumns(20);
+        ChatLogArea.setRows(5);
+        ChatLogArea.setText("[ Chat Log ]");
+        jScrollPane1.setViewportView(ChatLogArea);
+
+        SendButton.setText("Send");
+        SendButton.setToolTipText("");
+        SendButton.setMaximumSize(new java.awt.Dimension(60, 50));
+        SendButton.setMinimumSize(new java.awt.Dimension(60, 50));
+        SendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SendButtonActionPerformed(evt);
+            }
+        });
+
+        MessageArea.setColumns(20);
+        MessageArea.setRows(5);
+        MessageArea.setText("[ Message ]");
+        jScrollPane2.setViewportView(MessageArea);
+
+        MemberRuanganArea.setColumns(20);
+        MemberRuanganArea.setRows(5);
+        MemberRuanganArea.setText("[  Member Ruangan ]");
+        jScrollPane3.setViewportView(MemberRuanganArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(SendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(RoomNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(RoomNameLabel)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(SendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SendButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +148,13 @@ public class Room extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea ChatLogArea;
+    private javax.swing.JTextArea MemberRuanganArea;
+    private javax.swing.JTextArea MessageArea;
+    private javax.swing.JLabel RoomNameLabel;
+    private javax.swing.JButton SendButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }
