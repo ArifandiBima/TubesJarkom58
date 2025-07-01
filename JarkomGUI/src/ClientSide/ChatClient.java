@@ -21,10 +21,15 @@ public class ChatClient {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             
             printHelp();
+            System.out.println(in.readLine());
             UsernameSubmit.getUsername();
+            while(running.get()){
+            
+            }
         } catch (IOException e) {
             System.err.println("Client errorm: " + e.getMessage());
         }
+        
     }
 
     private static void startReceiverThread(BufferedReader in) {
@@ -36,7 +41,9 @@ public class ChatClient {
                 }
             } catch (IOException e) {
                 if (running.get()) {
+                    System.out.println(e.getMessage());
                     System.out.println("Disconnected from server.");
+                    running.set(false);
                 }
             }
         }).start();
@@ -81,7 +88,12 @@ public class ChatClient {
         } catch (IOException e) {
             System.out.println("ana");
         }
-        if (serverMessage.equals("Enter your username:"))return false;
+        if (serverMessage.equals("Enter your username:")){
+            System.out.println("retry");return false;
+        }
+        else{
+            System.out.println("Success");
+        }
         startReceiverThread(in);
         return true;
     }

@@ -14,6 +14,13 @@ public class ClientHandler implements Runnable {
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
+        try{
+            initializeStreams();
+            authenticateUser();
+        }
+        catch(IOException e){
+            
+        }
     }
 
     public boolean isClosed() {
@@ -22,8 +29,7 @@ public class ClientHandler implements Runnable {
 
     public void run() {
         try {
-            initializeStreams();
-            authenticateUser();
+
             processMessages();
         } catch (IOException e) {
             handleError(e);
@@ -180,5 +186,8 @@ public class ClientHandler implements Runnable {
     public boolean equals(Object other){
         if (!(other instanceof ClientHandler)) return false;
         return this.username.equals(((ClientHandler)other).username);
+    }
+    public int hashCode(){
+        return this.username.hashCode();
     }
 }
