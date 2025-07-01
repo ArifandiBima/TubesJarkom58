@@ -43,7 +43,6 @@ public class ChatClient {
                 if (running.get()) {
                     System.out.println(e.getMessage());
                     System.out.println("Disconnected from server.");
-                    running.set(false);
                 }
             }
         }).start();
@@ -94,7 +93,22 @@ public class ChatClient {
         else{
             System.out.println("Success");
         }
-        startReceiverThread(in);
         return true;
+    }
+    public static String listRooms(){
+        processUserInput("/rooms");
+        String roomList="";
+        try {
+            String serverMessage=in.readLine();
+            do{
+                System.out.println(serverMessage);
+                roomList+=serverMessage+"\n";
+                serverMessage = in.readLine();
+            }while(!serverMessage.equals("done"));
+        } catch (IOException e) {
+            System.out.println("ana");
+        }
+        System.out.println("anoa");
+        return roomList;
     }
 }

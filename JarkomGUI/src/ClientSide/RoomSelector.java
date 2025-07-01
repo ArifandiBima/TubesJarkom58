@@ -1,5 +1,7 @@
 package ClientSide;
 
+import java.io.IOException;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,8 +16,9 @@ public class RoomSelector extends javax.swing.JFrame {
     /**
      * Creates new form RoomSelector
      */
-    public RoomSelector() {
+    public RoomSelector(){
         initComponents();
+        roomListArea.setText(ChatClient.listRooms());
     }
 
     /**
@@ -29,7 +32,7 @@ public class RoomSelector extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        roomListArea = new javax.swing.JTextArea();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
@@ -38,11 +41,10 @@ public class RoomSelector extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 48)); // NOI18N
         jLabel1.setText("Ruangan Yang Tersedia");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("[Ruangan - Ruangan]");
-        jScrollPane1.setViewportView(jTextArea1);
+        roomListArea.setEditable(false);
+        roomListArea.setColumns(20);
+        roomListArea.setRows(5);
+        jScrollPane1.setViewportView(roomListArea);
 
         jTextField1.setText("[Select Room]");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +97,7 @@ public class RoomSelector extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void makeScreen() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -118,11 +120,12 @@ public class RoomSelector extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(RoomSelector.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        RoomSelector roomSelector = new RoomSelector();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RoomSelector().setVisible(true);
+                roomSelector.setVisible(true);
+                
             }
         });
     }
@@ -131,7 +134,7 @@ public class RoomSelector extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea roomListArea;
     // End of variables declaration//GEN-END:variables
 }

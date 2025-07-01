@@ -29,7 +29,7 @@ public class ChatServer {
 
     public static void broadcastSystemMessage(String message) {
         clients.forEach(client -> {
-            if (!client.isClosed()) {
+            if (!client.isClosed()&&client.inRoom()) {
                 client.sendMessage("[System] " + message);
             }
         });

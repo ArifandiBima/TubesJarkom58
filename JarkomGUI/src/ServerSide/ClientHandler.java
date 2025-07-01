@@ -103,9 +103,9 @@ public class ClientHandler implements Runnable {
         """);
         } else if (currentRoom != null) {
             currentRoom.broadcast(username + ": " + input);
-        } else {
-            sendMessage("You must join a room first (/join roomname)");
-        }
+        } //else {
+//            sendMessage("You must join a room first (/join roomname)");
+//        }
     }
 
 
@@ -147,6 +147,7 @@ public class ClientHandler implements Runnable {
             sb.append("- ").append(name).append(" (")
             .append(count).append(" user").append(count != 1 ? "s" : "")
             .append(")\n"));
+        sb.append("done\n");
         sendMessage(sb.toString());
     }
 
@@ -189,5 +190,8 @@ public class ClientHandler implements Runnable {
     }
     public int hashCode(){
         return this.username.hashCode();
+    }
+    public boolean inRoom(){
+        return this.currentRoom!=null;
     }
 }

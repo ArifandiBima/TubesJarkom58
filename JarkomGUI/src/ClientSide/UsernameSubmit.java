@@ -75,8 +75,7 @@ public class UsernameSubmit extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(ChatClient.usernameVerified(this.usernameField.getText())){
             //generate the next screen
-            RoomSelect.makeScreen();
-            this.dispose();
+            RoomSelector.makeScreen();
         }
         else{
             this.tryAgainLabel.setText("username taken");
