@@ -33,7 +33,7 @@ public class RoomSelector extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         roomListArea = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        roomInputField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,14 +46,24 @@ public class RoomSelector extends javax.swing.JFrame {
         roomListArea.setRows(5);
         jScrollPane1.setViewportView(roomListArea);
 
-        jTextField1.setText("[Select Room]");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        roomInputField.setText("[Select Room]");
+        roomInputField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                roomInputFieldFocusGained(evt);
+            }
+        });
+        roomInputField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                roomInputFieldActionPerformed(evt);
             }
         });
 
         jButton1.setText("Join/Create");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,7 +78,7 @@ public class RoomSelector extends javax.swing.JFrame {
                         .addGap(0, 309, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(roomInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -82,7 +92,7 @@ public class RoomSelector extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roomInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18))
         );
@@ -90,9 +100,18 @@ public class RoomSelector extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void roomInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomInputFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_roomInputFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (this.roomInputField.getText().trim().equals("")) return;
+        ChatClient.enterRoom(this.roomInputField.getText().trim());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void roomInputFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roomInputFieldFocusGained
+        this.roomInputField.setText("");
+    }//GEN-LAST:event_roomInputFieldFocusGained
 
     /**
      * @param args the command line arguments
@@ -134,7 +153,7 @@ public class RoomSelector extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField roomInputField;
     private javax.swing.JTextArea roomListArea;
     // End of variables declaration//GEN-END:variables
 }

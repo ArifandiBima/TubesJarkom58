@@ -68,7 +68,8 @@ public class ClientHandler implements Runnable {
         if (input.startsWith("/join ")) {
             joinRoom(input.substring(6).trim());
         } else if (input.equals("/leave")) {
-            leaveRoom();
+            if(currentRoom.isOwner(this)) currentRoom.closeRoom();
+            else leaveRoom();
         } else if (input.equals("/rooms")) {
             listRooms();
         } else if (input.equals("/close")) {
@@ -103,9 +104,9 @@ public class ClientHandler implements Runnable {
         """);
         } else if (currentRoom != null) {
             currentRoom.broadcast(username + ": " + input);
-        } //else {
-//            sendMessage("You must join a room first (/join roomname)");
-//        }
+        } else {
+            sendMessage("You must join a room first (/join roomname)");
+        }
     }
 
 
@@ -138,7 +139,7 @@ public class ClientHandler implements Runnable {
 
     public void kickFromRoom() {
         currentRoom = null;
-        sendMessage("You have been removed from the room.");
+        sendMessage("kickOut");
     }
 
     private void listRooms() {

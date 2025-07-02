@@ -6,11 +6,13 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ChatClient {
-    private static final String SERVER_IP = "localhost";
+    private static final String SERVER_IP = "localhost";//tolong diganti dengan ip server
     private static final int PORT = 1234;
     private static final AtomicBoolean running = new AtomicBoolean(true);
     private static PrintWriter out;
     private static BufferedReader in;
+    private static Room room;
+    private static Thread receiverThread;
 
     public static void main(String[] args) {
         try (
@@ -32,12 +34,25 @@ public class ChatClient {
         
     }
 
-    private static void startReceiverThread(BufferedReader in) {
-        new Thread(() -> {
+    private static void startReceiverThread() {
+        receiverThread = new Thread(() -> {
             try {
                 String serverMessage;
                 while (running.get() && (serverMessage = in.readLine()) != null) {
-                    System.out.println(serverMessage);
+                    if (serverMessage.startsWith("kickOut")){
+                        break;
+                    }
+                    if (serverMessage.startsWith("Members:")){
+                        String members ="" ;
+                        do{
+                            members+=serverMessage+"\n";
+                            serverMessage = in.readLine();
+                        }while(!serverMessage.equals("done"));
+                        room.listMembers(members);
+                    }
+                    else{
+                        room.addMessage(serverMessage.substring(6));
+                    }
                 }
             } catch (IOException e) {
                 if (running.get()) {
@@ -45,10 +60,11 @@ public class ChatClient {
                     System.out.println("Disconnected from server.");
                 }
             }
-        }).start();
+        });
+        receiverThread.start();
     }
 
-    private static void processUserInput(String input) {
+    public static void processUserInput(String input) {
         try{
             if (input.equalsIgnoreCase("/exit")) {
                 shutdown();
@@ -97,6 +113,26 @@ public class ChatClient {
     }
     public static String listRooms(){
         processUserInput("/rooms");
+        String roomList="";
+        try {
+            String serverMessage=in.readLine();
+            do{
+                System.out.println(serverMessage);
+                roomList+=serverMessage+"\n";
+                serverMessage = in.readLine();
+            }while(!serverMessage.equals("done"));
+        } catch (IOException e) {
+            System.out.println("ana");
+        }
+        System.out.println("anoa");
+        return roomList;
+    }
+    public static void enterRoom(String roomName){
+        room = new Room(roomName);
+        Room.enterRoom(room);
+    }
+    public static String inRoom(){
+        processUserInput("/members");
         String roomList="";
         try {
             String serverMessage=in.readLine();

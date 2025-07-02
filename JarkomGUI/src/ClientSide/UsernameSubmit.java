@@ -76,6 +76,7 @@ public class UsernameSubmit extends javax.swing.JFrame {
         if(ChatClient.usernameVerified(this.usernameField.getText())){
             //generate the next screen
             RoomSelector.makeScreen();
+            this.dispose();
         }
         else{
             this.tryAgainLabel.setText("username taken");
