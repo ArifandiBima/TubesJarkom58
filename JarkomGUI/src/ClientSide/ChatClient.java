@@ -22,7 +22,7 @@ public class ChatClient {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             
-            System.out.println(in.readLine());
+            in.readLine();
             UsernameSubmit.getUsername();
             while(running.get()){
             
@@ -105,11 +105,12 @@ public class ChatClient {
             System.out.println("ana");
         }
         if (serverMessage.equals("Enter your username:")){
-            System.out.println("retry");return false;
+            //System.out.println("retry");
+            return false;
         }
-        else{
-            System.out.println("Success");
-        }
+//        else{
+//            System.out.println("Success");
+//        }
         return true;
     }
     public static String listRooms(){
@@ -118,14 +119,14 @@ public class ChatClient {
         try {
             String serverMessage=in.readLine();
             do{
-                System.out.println(serverMessage);
+                //System.out.println(serverMessage);
                 roomList+=serverMessage+"\n";
                 serverMessage = in.readLine();
             }while(!serverMessage.equals("done"));
         } catch (IOException e) {
-            System.out.println("ana");
+            //System.out.println("ana");
         }
-        System.out.println("anoa");
+        //System.out.println("anoa");
         return roomList;
     }
     public static void enterRoom(String roomName){
