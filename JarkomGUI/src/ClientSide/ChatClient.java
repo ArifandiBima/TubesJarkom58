@@ -39,6 +39,8 @@ public class ChatClient {
                 String serverMessage;
                 while (running.get() && (serverMessage = in.readLine()) != null) {
                     if (serverMessage.startsWith("kickOut")){
+                        room.exit();
+                        room= null;
                         break;
                     }
                     if (serverMessage.startsWith("Members:")){

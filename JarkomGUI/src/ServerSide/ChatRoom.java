@@ -16,6 +16,7 @@ public class ChatRoom {
     public synchronized void memberJoined(ClientHandler client) {
         members.add(client);
         broadcast(client.getUsername() + " joined " + name);
+        this.someOneJoined();
     }
 
     public synchronized void memberLeft(ClientHandler client) {
@@ -23,7 +24,6 @@ public class ChatRoom {
             broadcast(client.getUsername() + " left " + name);
             RoomManager.removeRoomIfEmpty(name);
         }
-        this.someOneJoined();
     }
 
     public boolean isOwner(ClientHandler user) {
@@ -42,8 +42,8 @@ public class ChatRoom {
     public synchronized boolean kickUser(String username) {
         for (ClientHandler member : members) {
             if (member.getUsername().equalsIgnoreCase(username)) {
-                member.kickFromRoom();
                 memberLeft(member);
+                member.kickFromRoom();
                 return true;
             }
         }

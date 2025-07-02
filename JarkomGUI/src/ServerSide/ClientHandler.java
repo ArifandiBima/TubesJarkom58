@@ -131,7 +131,7 @@ public class ClientHandler implements Runnable {
     private void leaveRoom() {
         if (currentRoom != null) {
             currentRoom.memberLeft(this);
-            sendMessage("kickOut");
+            sendMessage("kickOut by the host");
             currentRoom = null;
         }
         else{
@@ -140,8 +140,7 @@ public class ClientHandler implements Runnable {
     }
 
     public void kickFromRoom() {
-        currentRoom = null;
-        sendMessage("kickOut");
+        sendMessage("kickOut dari kickFromRoom()");
     }
 
     private void listRooms() {

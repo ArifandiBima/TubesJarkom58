@@ -75,6 +75,7 @@ public class Room extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(MessageArea);
 
+        MemberRuanganArea.setEditable(false);
         MemberRuanganArea.setColumns(20);
         MemberRuanganArea.setRows(5);
         MemberRuanganArea.setText("[  Member Ruangan ]");
@@ -152,7 +153,9 @@ public class Room extends javax.swing.JFrame {
         RoomSelector.makeScreen();
         this.dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
-
+    public void exit(){
+        this.exitButton.doClick();
+    }
     /**
      * @param args the command line arguments
      */
