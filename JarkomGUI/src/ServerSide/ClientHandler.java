@@ -140,7 +140,7 @@ public class ClientHandler implements Runnable {
     }
 
     public void kickFromRoom() {
-        sendMessage("kickOut dari kickFromRoom()");
+        sendMessage("kickOut");
     }
 
     private void listRooms() {
