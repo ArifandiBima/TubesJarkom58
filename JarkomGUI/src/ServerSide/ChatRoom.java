@@ -23,6 +23,7 @@ public class ChatRoom {
             broadcast(client.getUsername() + " left " + name);
             RoomManager.removeRoomIfEmpty(name);
         }
+        this.someOneJoined();
     }
 
     public boolean isOwner(ClientHandler user) {
@@ -61,5 +62,17 @@ public class ChatRoom {
 
     public int getMemberCount() {
         return members.size();
+    }
+    public String getMembers(){
+        String res="";
+        for (ClientHandler member:members){
+            res+=member.getUsername()+"\n";
+        }
+        return res;
+    }
+    public void someOneJoined(){
+        for(ClientHandler member:members){
+            member.listMembers();
+        }
     }
 }

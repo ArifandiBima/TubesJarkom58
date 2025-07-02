@@ -22,7 +22,6 @@ public class ChatClient {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             
-            printHelp();
             System.out.println(in.readLine());
             UsernameSubmit.getUsername();
             while(running.get()){
@@ -51,7 +50,7 @@ public class ChatClient {
                         room.listMembers(members);
                     }
                     else{
-                        room.addMessage(serverMessage.substring(6));
+                        room.addMessage(serverMessage);
                     }
                 }
             } catch (IOException e) {
@@ -130,21 +129,8 @@ public class ChatClient {
     public static void enterRoom(String roomName){
         room = new Room(roomName);
         Room.enterRoom(room);
-    }
-    public static String inRoom(){
+        startReceiverThread();
+        processUserInput("/join "+roomName);
         processUserInput("/members");
-        String roomList="";
-        try {
-            String serverMessage=in.readLine();
-            do{
-                System.out.println(serverMessage);
-                roomList+=serverMessage+"\n";
-                serverMessage = in.readLine();
-            }while(!serverMessage.equals("done"));
-        } catch (IOException e) {
-            System.out.println("ana");
-        }
-        System.out.println("anoa");
-        return roomList;
     }
 }

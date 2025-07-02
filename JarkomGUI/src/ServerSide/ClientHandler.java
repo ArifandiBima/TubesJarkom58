@@ -72,7 +72,9 @@ public class ClientHandler implements Runnable {
             else leaveRoom();
         } else if (input.equals("/rooms")) {
             listRooms();
-        } else if (input.equals("/close")) {
+        } else if (input.equals("/members")){
+            listMembers();
+        }else if (input.equals("/close")) {
             if (currentRoom != null && currentRoom.isOwner(this)) {
                 currentRoom.closeRoom();
                 currentRoom = null;
@@ -129,7 +131,7 @@ public class ClientHandler implements Runnable {
     private void leaveRoom() {
         if (currentRoom != null) {
             currentRoom.memberLeft(this);
-            sendMessage("Left room: " + currentRoom.getName());
+            sendMessage("kickOut");
             currentRoom = null;
         }
         else{
@@ -180,6 +182,12 @@ public class ClientHandler implements Runnable {
                 System.out.println("Shutdown error: " + e.getMessage());
             }
         }
+    }
+    public void listMembers(){
+        StringBuilder sb = new StringBuilder("Members:\n");
+        sb.append(currentRoom.getMembers());
+        sb.append("\ndone\n");
+        sendMessage(sb.toString());
     }
 
     public String getUsername() {

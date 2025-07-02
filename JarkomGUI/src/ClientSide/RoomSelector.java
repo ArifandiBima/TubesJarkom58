@@ -107,6 +107,7 @@ public class RoomSelector extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (this.roomInputField.getText().trim().equals("")) return;
         ChatClient.enterRoom(this.roomInputField.getText().trim());
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void roomInputFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roomInputFieldFocusGained

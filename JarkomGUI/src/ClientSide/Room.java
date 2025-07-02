@@ -49,6 +49,7 @@ public class Room extends javax.swing.JFrame {
         RoomNameLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 48)); // NOI18N
         RoomNameLabel.setText("[ Nama Ruangan ]");
 
+        ChatLogArea.setEditable(false);
         ChatLogArea.setColumns(20);
         ChatLogArea.setRows(5);
         ChatLogArea.setText("[ Chat Log ]");
@@ -67,6 +68,11 @@ public class Room extends javax.swing.JFrame {
         MessageArea.setColumns(20);
         MessageArea.setRows(5);
         MessageArea.setText("[ Message ]");
+        MessageArea.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                MessageAreaFocusGained(evt);
+            }
+        });
         jScrollPane2.setViewportView(MessageArea);
 
         MemberRuanganArea.setColumns(20);
@@ -75,6 +81,11 @@ public class Room extends javax.swing.JFrame {
         jScrollPane3.setViewportView(MemberRuanganArea);
 
         exitButton.setText("exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +140,18 @@ public class Room extends javax.swing.JFrame {
 
     private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
         ChatClient.processUserInput(this.MessageArea.getText());
+        this.MessageArea.setText("");
     }//GEN-LAST:event_SendButtonActionPerformed
+
+    private void MessageAreaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MessageAreaFocusGained
+        this.MessageArea.setText("");
+    }//GEN-LAST:event_MessageAreaFocusGained
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        ChatClient.processUserInput("/leave");
+        RoomSelector.makeScreen();
+        this.dispose();
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     /**
      * @param args the command line arguments
